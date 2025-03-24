@@ -1,12 +1,8 @@
 package com.example.schedules.entity;
 
-import java.sql.Timestamp;
-import java.time.Clock;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
-import lombok.Generated;
 import lombok.Getter;
-import org.springframework.data.relational.core.mapping.Column;
 
 @Getter
 @AllArgsConstructor
@@ -23,31 +19,9 @@ public class Schedule {
     this.name = name;
     this.todo = todo;
     this.password = password;
-    this.createdAt = localDateTime();
-    this.updatedAt = localDateTime();
+    //바로 LocalDateTime.now() 해주기
+    this.createdAt = LocalDateTime.now();
+    this.updatedAt = LocalDateTime.now();
 
   }
-
-  private LocalDateTime localDateTime(){
-    LocalDateTime now = LocalDateTime.now(Clock.systemDefaultZone());
-
-    return now;
-  }
-
-
-
-//  public Schedule(String name, String todo, String updatedAt){
-//    this.name = name;
-//    this.todo = todo;
-//    this.updatedAt = updatedAt;
-//  }
-//
-//  public Schedule(String name, String todo, String password, String updatedAt){
-//    this.name = name;
-//    this.todo = todo;
-//    this.password = password;
-//    this.updatedAt = updatedAt;
-//  }
-
-
 }
