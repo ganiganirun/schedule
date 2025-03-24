@@ -1,7 +1,6 @@
 package com.example.schedules.dto;
 
 import com.example.schedules.entity.Schedule;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
