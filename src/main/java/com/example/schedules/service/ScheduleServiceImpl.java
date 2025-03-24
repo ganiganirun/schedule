@@ -54,7 +54,7 @@ public class ScheduleServiceImpl implements ScheduleService{
   public ScheduleResponseDto updateScheduleById(Long id, String name, String todo, String password) {
 
     if (password == null) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The title is a required value.");
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The password is a required value.");
     }
 
     int updateeRow = scheduleRepository.updateScheduleById(id, name, todo, password);
