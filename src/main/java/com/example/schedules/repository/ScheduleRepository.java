@@ -9,4 +9,6 @@ public interface ScheduleRepository {
 
   List<ScheduleResponseDto> findAllSchedules(String update_at, String name);
 
+  Schedule findScheduleByIdOrElseThrow(Long id);
+
 }
