@@ -11,4 +11,10 @@ public interface ScheduleRepository {
 
   Schedule findScheduleByIdOrElseThrow(Long id);
 
+  int updateScheduleById(Long id, String name, String todo, String updated_at, String password);
+
+//  int updateScheduleName(Long id, String name, String updated_at, String password);
+//
+//  int updateScheduleTodo(Long id, String todo, String updated_at, String password);
+
 }
