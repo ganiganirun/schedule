@@ -49,6 +49,31 @@ public class ScheduleController {
     return new ResponseEntity<>(scheduleService.findScheduleById(id), HttpStatus.OK);
   }
 
+  @PatchMapping("/{id}")
+  public ResponseEntity<ScheduleResponseDto> updateScheduleById(
+      @PathVariable Long id,
+      @RequestBody ScheduleRequestDto dto
+  ){
+    return new ResponseEntity<>(scheduleService.updateScheduleById(id, dto.getName(),dto.getTodo(), dto.getPassword()), HttpStatus.OK);
 
+  }
+
+//  @PatchMapping("/{id}")
+//  public ResponseEntity<ScheduleResponseDto> updateScheduleName(
+//      @PathVariable Long id,
+//      @RequestBody ScheduleRequestDto dto
+//  ){
+//    return new ResponseEntity<>(scheduleService.updateScheduleName(id, dto.getName(), dto.getPassword()), HttpStatus.OK);
+//
+//  }
+//
+//  @PatchMapping("/{id}")
+//  public ResponseEntity<ScheduleResponseDto> updateScheduleTodo(
+//      @PathVariable Long id,
+//      @RequestBody ScheduleRequestDto dto
+//  ){
+//    return new ResponseEntity<>(scheduleService.updateScheduleTodo(id, dto.getTodo(), dto.getPassword()), HttpStatus.OK);
+//
+//  }
 
 }
