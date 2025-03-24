@@ -46,7 +46,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
   @Override
   public List<ScheduleResponseDto> findAllSchedules(String update_at, String name) {
 
-    return jdbcTemplate.query("select * from schedule where name = ? and left(updated_at, 10) >= ? order by str_to_date(updated_at, '%Y-%m-%d %H:%i:%s')desc", ScheduleRowMapper(), name, update_at);
+    return jdbcTemplate.query("select * from schedule where name = ? and left(updated_at, 10) >= ? order by updated_at desc", ScheduleRowMapper(), name, update_at);
   }
 
   @Override
