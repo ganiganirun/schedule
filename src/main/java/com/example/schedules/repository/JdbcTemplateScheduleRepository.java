@@ -56,6 +56,28 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
     return result.stream().findAny().orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + id));
   }
 
+  @Override
+  public int updateScheduleById(Long id, String name, String todo, String updated_at, String password) {
+
+    if(name != null && todo == null){
+      return jdbcTemplate.update("update schedule set name = ?, updated_at = ? where id = ? and password = ?", name, updated_at, id, password);
+    } else if (name == null && todo != null) {
+      return jdbcTemplate.update("update schedule set todo = ? , updated_at = ? where id = ? and password = ?", todo, updated_at, id, password);
+    }else {
+      return jdbcTemplate.update("update schedule set name = ?, todo = ? , updated_at = ? where id = ? and password = ?", name, todo, updated_at, id, password);
+    }
+//    return jdbcTemplate.update("update schedule set name = ?, todo = ? , updated_at = ? where id = ? and password = ?", name, todo, updated_at, id, password);
+  }
+
+//  @Override
+//  public int updateScheduleName(Long id, String name, String updated_at, String password) {
+//    return jdbcTemplate.update("update schedule set name = ? , updated_at = ? where id = ? and password = ?", name, updated_at, id, password);
+//  }
+//
+//  @Override
+//  public int updateScheduleTodo(Long id, String todo, String updated_at, String password) {
+//    return jdbcTemplate.update("update schedule set  todo = ? , updated_at = ? where id = ? and password = ?", todo, updated_at, id, password);
+//  }
 
 
   private RowMapper<ScheduleResponseDto> ScheduleRowMapper() {
