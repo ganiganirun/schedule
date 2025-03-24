@@ -49,8 +49,15 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
 
   @Override
   public List<ScheduleResponseDto> findAllSchedules(LocalDate update_at, String name) {
-
-    return jdbcTemplate.query("select * from schedule where name = ? and left(updated_at, 10) >= ? order by updated_at desc", ScheduleRowMapper(), name, update_at);
+    if(update_at != null && name == null){
+      return jdbcTemplate.query("select * from schedule where left(updated_at, 10) >= ? order by updated_at desc", ScheduleRowMapper(), update_at);
+    } else if (update_at == null && name != null) {
+      return jdbcTemplate.query("select * from schedule where name = ? order by updated_at desc", ScheduleRowMapper(), name);
+    }else if (update_at == null && name == null){
+      return jdbcTemplate.query("select * from schedule order by updated_at desc", ScheduleRowMapper());
+    } else {
+      return jdbcTemplate.query("select * from schedule where name = ? and left(updated_at, 10) >= ? order by updated_at desc", ScheduleRowMapper(), name, update_at);
+    }
   }
 
   @Override
@@ -71,7 +78,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
 //      return jdbcTemplate.update("update schedule set name = ?, todo = ? , updated_at = ? where id = ? and password = ?", name, todo, updated_at, id, password);
 //    }
 
-    // 내가 하나만 바꿔도 프론트에서 싹다 보내줄거라는 가정하에 굳이 if문으로 경우를 나누지 않아도 괜찮고 다음 sql 문 사용해도 됨
+    // 내가 하나만 바꿔도 프론트에서 싹다 보내줄거라는 가정 하에 굳이 if문으로 경우를 나누지 않아도 괜찮고 다음 sql 문 사용해도 됨(튜터님 께 질문 후 수정한 부분)
     return jdbcTemplate.update("update schedule set name = ?, todo = ? where id = ? and password = ?", name, todo, id, password);
   }
 
