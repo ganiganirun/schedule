@@ -12,6 +12,4 @@ public interface ScheduleService {
 
   ScheduleResponseDto findScheduleById(Long id);
 
-
-
 }
