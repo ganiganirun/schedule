@@ -1,9 +1,11 @@
 package com.example.schedules.controller;
 
-
 import com.example.schedules.dto.ScheduleRequestDto;
 import com.example.schedules.dto.ScheduleResponseDto;
 import com.example.schedules.service.ScheduleService;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +39,7 @@ public class ScheduleController {
 
   @GetMapping
   public ResponseEntity<List<ScheduleResponseDto>> findAllSchedules(
-      @RequestParam String updated_at,
+      @RequestParam LocalDate updated_at,
       @RequestParam String name
   ){
 

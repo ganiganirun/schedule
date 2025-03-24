@@ -6,11 +6,14 @@ import com.example.schedules.entity.Schedule;
 import com.example.schedules.repository.ScheduleRepository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.Clock;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import org.springframework.http.HttpStatus;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -24,23 +27,16 @@ public class ScheduleServiceImpl implements ScheduleService{
     this.scheduleRepository = scheduleRepository;
   }
 
-  public String dateFormat(){
-    Date today = new Date();
-
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    return dateFormat.format(today);
-  }
-
 
   @Override
   public ScheduleResponseDto saveSchedule(ScheduleRequestDto dto) {
 
-    Schedule schedule = new Schedule(dto.getName(), dto.getTodo(), dto.getPassword(), dateFormat(), dateFormat());
+    Schedule schedule = new Schedule(dto.getName(), dto.getTodo(), dto.getPassword());
     return scheduleRepository.saveSchedule(schedule);
   }
 
   @Override
-  public List<ScheduleResponseDto> findAllSchedules(String updated_at, String name) {
+  public List<ScheduleResponseDto> findAllSchedules(LocalDate updated_at, String name) {
 
     return scheduleRepository.findAllSchedules(updated_at, name);
   }
@@ -61,7 +57,7 @@ public class ScheduleServiceImpl implements ScheduleService{
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The title is a required value.");
     }
 
-    int updateeRow = scheduleRepository.updateScheduleById(id, name, todo, dateFormat(), password);
+    int updateeRow = scheduleRepository.updateScheduleById(id, name, todo, password);
 
     if(updateeRow == 0){
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + id);

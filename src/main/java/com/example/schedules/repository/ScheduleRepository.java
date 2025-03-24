@@ -2,16 +2,18 @@ package com.example.schedules.repository;
 
 import com.example.schedules.dto.ScheduleResponseDto;
 import com.example.schedules.entity.Schedule;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ScheduleRepository {
   ScheduleResponseDto saveSchedule(Schedule schedule);
 
-  List<ScheduleResponseDto> findAllSchedules(String update_at, String name);
+  List<ScheduleResponseDto> findAllSchedules(LocalDate update_at, String name);
 
   Schedule findScheduleByIdOrElseThrow(Long id);
 
-  int updateScheduleById(Long id, String name, String todo, String updated_at, String password);
+  int updateScheduleById(Long id, String name, String todo, String password);
 
   int deleteSchedule(Long id, String password);
 

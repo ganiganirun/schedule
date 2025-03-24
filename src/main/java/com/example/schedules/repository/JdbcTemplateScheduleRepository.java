@@ -4,6 +4,9 @@ import com.example.schedules.dto.ScheduleResponseDto;
 import com.example.schedules.entity.Schedule;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,15 +39,16 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
     parameters.put("name" , schedule.getName());
     parameters.put("todo", schedule.getTodo());
     parameters.put("password", schedule.getPassword());
-    parameters.put("created_at",schedule.getCreatedAt());
-    parameters.put("updated_at",schedule.getUpdatedAt());
+    parameters.put("created_at", schedule.getCreatedAt());
+    parameters.put("updated_at", schedule.getUpdatedAt());
+
 
     Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
     return new ScheduleResponseDto(key.longValue(), schedule.getName(), schedule.getTodo(), schedule.getUpdatedAt());
   }
 
   @Override
-  public List<ScheduleResponseDto> findAllSchedules(String update_at, String name) {
+  public List<ScheduleResponseDto> findAllSchedules(LocalDate update_at, String name) {
 
     return jdbcTemplate.query("select * from schedule where name = ? and left(updated_at, 10) >= ? order by updated_at desc", ScheduleRowMapper(), name, update_at);
   }
@@ -57,16 +61,18 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
   }
 
   @Override
-  public int updateScheduleById(Long id, String name, String todo, String updated_at, String password) {
+  public int updateScheduleById(Long id, String name, String todo, String password) {
 
-    if(name != null && todo == null){
-      return jdbcTemplate.update("update schedule set name = ?, updated_at = ? where id = ? and password = ?", name, updated_at, id, password);
-    } else if (name == null && todo != null) {
-      return jdbcTemplate.update("update schedule set todo = ? , updated_at = ? where id = ? and password = ?", todo, updated_at, id, password);
-    }else {
-      return jdbcTemplate.update("update schedule set name = ?, todo = ? , updated_at = ? where id = ? and password = ?", name, todo, updated_at, id, password);
-    }
-//    return jdbcTemplate.update("update schedule set name = ?, todo = ? , updated_at = ? where id = ? and password = ?", name, todo, updated_at, id, password);
+//    if(name != null && todo == null){
+//      return jdbcTemplate.update("update   schedule set name = ?, updated_at = ? where id = ? and password = ?", name, updated_at, id, password);
+//    } else if (name == null && todo != null) {
+//      return jdbcTemplate.update("update schedule set todo = ? , updated_at = ? where id = ? and password = ?", todo, updated_at, id, password);
+//    }else {
+//      return jdbcTemplate.update("update schedule set name = ?, todo = ? , updated_at = ? where id = ? and password = ?", name, todo, updated_at, id, password);
+//    }
+
+    // 내가 하나만 바꿔도 프론트에서 싹다 보내줄거라는 가정하에 굳이 if문으로 경우를 나누지 않아도 괜찮고 다음 sql 문 사용해도 됨
+    return jdbcTemplate.update("update schedule set name = ?, todo = ? where id = ? and password = ?", name, todo, id, password);
   }
 
   @Override
@@ -93,7 +99,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
             rs.getLong("id"),
             rs.getString("name"),
             rs.getString("todo"),
-            rs.getString("updated_at")
+            TtoL(rs.getTimestamp("updated_at"))
         );
       }
     };
@@ -103,16 +109,22 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
     return new RowMapper<Schedule>() {
       @Override
       public Schedule mapRow(ResultSet rs, int rowNum) throws SQLException {
+
         return new Schedule(
             rs.getLong("id"),
             rs.getString("name"),
             rs.getString("todo"),
             rs.getString("password"),
-            rs.getString("created_at"),
-            rs.getString("updated_at")
+            TtoL(rs.getTimestamp("created_at")),
+            TtoL(rs.getTimestamp("updated_at"))
         );
       }
     };
+  }
+
+  private LocalDateTime TtoL(Timestamp t){
+
+    return t.toLocalDateTime();
   }
 
 
