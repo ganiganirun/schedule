@@ -32,6 +32,11 @@ public class ScheduleServiceImpl implements ScheduleService{
     return scheduleRepository.saveSchedule(schedule);
   }
 
+  @Override
+  public List<ScheduleResponseDto> findAllSchedules(String updated_at, String name) {
+
+    return scheduleRepository.findAllSchedules(updated_at, name);
+  }
 
 
 }
