@@ -12,4 +12,10 @@ public interface ScheduleService {
 
   ScheduleResponseDto findScheduleById(Long id);
 
+  ScheduleResponseDto updateScheduleById(Long id, String name, String todo, String password);
+
+//  ScheduleResponseDto updateScheduleName(Long id, String name, String password);
+//
+//  ScheduleResponseDto updateScheduleTodo(Long id, String todo, String password);
+
 }
