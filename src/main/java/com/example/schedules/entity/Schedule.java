@@ -22,10 +22,18 @@ public class Schedule {
     this.updatedAt = updatedAt;
   }
 
-  public Schedule(String name, String todo, String password, String updatedAt){
-    this.name = name;
-    this.todo = todo;
-    this.password = password;
-    this.updatedAt = updatedAt;
-  }
+//  public Schedule(String name, String todo, String updatedAt){
+//    this.name = name;
+//    this.todo = todo;
+//    this.updatedAt = updatedAt;
+//  }
+//
+//  public Schedule(String name, String todo, String password, String updatedAt){
+//    this.name = name;
+//    this.todo = todo;
+//    this.password = password;
+//    this.updatedAt = updatedAt;
+//  }
+
+
 }
