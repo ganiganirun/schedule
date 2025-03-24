@@ -72,6 +72,15 @@ public class ScheduleServiceImpl implements ScheduleService{
     return new ScheduleResponseDto(schedule);
   }
 
+  @Override
+  public void deleteSchedule(Long id, String password) {
+    int deletedRow = scheduleRepository.deleteSchedule(id ,password);
+
+    if(deletedRow == 0){
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Does not exist id = " + id);
+    }
+  }
+
 //  @Override
 //  public ScheduleResponseDto updateScheduleName(Long id, String name, String password) {
 //    int updateeRow = scheduleRepository.updateScheduleName(id, name, dateFormat(), password);
