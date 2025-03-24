@@ -43,7 +43,26 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
     return new ScheduleResponseDto(key.longValue(), schedule.getName(), schedule.getTodo(), schedule.getUpdatedAt());
   }
 
+  @Override
+  public List<ScheduleResponseDto> findAllSchedules(String update_at, String name) {
 
+    return jdbcTemplate.query("select * from schedule where name = ? and left(updated_at, 10) >= ? ", memoRowMapper(), name, update_at);
+  }
+
+
+  private RowMapper<ScheduleResponseDto> memoRowMapper() {
+    return new RowMapper<ScheduleResponseDto>() {
+      @Override
+      public ScheduleResponseDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+        return new ScheduleResponseDto(
+            rs.getLong("id"),
+            rs.getString("name"),
+            rs.getString("todo"),
+            rs.getString("updated_at")
+        );
+      }
+    };
+  }
 
 
 }
