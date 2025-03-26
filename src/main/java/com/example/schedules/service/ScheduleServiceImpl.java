@@ -4,14 +4,7 @@ import com.example.schedules.dto.ScheduleRequestDto;
 import com.example.schedules.dto.ScheduleResponseDto;
 import com.example.schedules.entity.Schedule;
 import com.example.schedules.repository.ScheduleRepository;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.time.Clock;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -76,32 +69,5 @@ public class ScheduleServiceImpl implements ScheduleService{
       throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Does not exist id = " + id);
     }
   }
-
-//  @Override
-//  public ScheduleResponseDto updateScheduleName(Long id, String name, String password) {
-//    int updateeRow = scheduleRepository.updateScheduleName(id, name, dateFormat(), password);
-//
-//    if(updateeRow == 0){
-//      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + id);
-//    }
-//
-//    Schedule schedule = scheduleRepository.findScheduleByIdOrElseThrow(id);
-//
-//    return new ScheduleResponseDto(schedule);
-//  }
-//
-//  @Override
-//  public ScheduleResponseDto updateScheduleTodo(Long id, String todo, String password) {
-//    int updateeRow = scheduleRepository.updateScheduleTodo(id, todo, dateFormat(), password);
-//
-//    if(updateeRow == 0){
-//      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + id);
-//    }
-//
-//    Schedule schedule = scheduleRepository.findScheduleByIdOrElseThrow(id);
-//
-//    return new ScheduleResponseDto(schedule);
-//  }
-
 
 }

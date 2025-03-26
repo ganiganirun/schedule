@@ -70,14 +70,6 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
   @Override
   public int updateScheduleById(Long id, String name, String todo, String password) {
 
-//    if(name != null && todo == null){
-//      return jdbcTemplate.update("update   schedule set name = ?, updated_at = ? where id = ? and password = ?", name, updated_at, id, password);
-//    } else if (name == null && todo != null) {
-//      return jdbcTemplate.update("update schedule set todo = ? , updated_at = ? where id = ? and password = ?", todo, updated_at, id, password);
-//    }else {
-//      return jdbcTemplate.update("update schedule set name = ?, todo = ? , updated_at = ? where id = ? and password = ?", name, todo, updated_at, id, password);
-//    }
-
     // 내가 하나만 바꿔도 프론트에서 싹다 보내줄거라는 가정 하에 굳이 if문으로 경우를 나누지 않아도 괜찮고 다음 sql 문 사용해도 됨(튜터님 께 질문 후 수정한 부분)
     return jdbcTemplate.update("update schedule set name = ?, todo = ? where id = ? and password = ?", name, todo, id, password);
   }
@@ -86,16 +78,6 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
   public int deleteSchedule(Long id, String password) {
     return jdbcTemplate.update("delete from schedule where id = ? and password = ?",id, password);
   }
-
-//  @Override
-//  public int updateScheduleName(Long id, String name, String updated_at, String password) {
-//    return jdbcTemplate.update("update schedule set name = ? , updated_at = ? where id = ? and password = ?", name, updated_at, id, password);
-//  }
-//
-//  @Override
-//  public int updateScheduleTodo(Long id, String todo, String updated_at, String password) {
-//    return jdbcTemplate.update("update schedule set  todo = ? , updated_at = ? where id = ? and password = ?", todo, updated_at, id, password);
-//  }
 
 
   private RowMapper<ScheduleResponseDto> ScheduleRowMapper() {
