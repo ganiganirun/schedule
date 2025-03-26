@@ -14,7 +14,9 @@
 3. API 명세서
     -  일정 생성, 전체 일정 조회, 선택일정 조회, 선택 일정 조정, 선택 일정 삭제
     - id, 할일(todo), 작성자명(name), 비밀번호(password), 최초작성일(created_at), 최근수정일(update_at)
-![스크린샷 2025-03-26 오후 12.10.43.png](../../../../../../var/folders/vd/5vbj3gz52hz5d5mypx9_6xsr0000gn/T/TemporaryItems/NSIRD_screencaptureui_2YgQGg/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202025-03-26%20%EC%98%A4%ED%9B%84%2012.10.43.png)
+![스크린샷 2025-03-26 오후 12 26 03](https://github.com/user-attachments/assets/4a697d9c-f8e5-440d-a9e7-f6480ec8e184)
+
 
 4. ERD
-![schedule.png](../../schedule.png)
+![schedule](https://github.com/user-attachments/assets/32795c57-2a12-4eef-8b19-a7cfcf0ec78c)
+
