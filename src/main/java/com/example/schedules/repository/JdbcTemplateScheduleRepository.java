@@ -88,7 +88,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
             rs.getLong("id"),
             rs.getString("name"),
             rs.getString("todo"),
-            TtoL(rs.getTimestamp("updated_at"))
+            timeStampToLocalDateTime(rs.getTimestamp("updated_at"))
         );
       }
     };
@@ -104,14 +104,14 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
             rs.getString("name"),
             rs.getString("todo"),
             rs.getString("password"),
-            TtoL(rs.getTimestamp("created_at")),
-            TtoL(rs.getTimestamp("updated_at"))
+            timeStampToLocalDateTime(rs.getTimestamp("created_at")),
+            timeStampToLocalDateTime(rs.getTimestamp("updated_at"))
         );
       }
     };
   }
 
-  private LocalDateTime TtoL(Timestamp t){
+  private LocalDateTime timeStampToLocalDateTime(Timestamp t){
 
     return t.toLocalDateTime();
   }
